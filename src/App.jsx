@@ -1,9 +1,19 @@
+import { Routes, Route } from 'react-router-dom'
+import Accueil from './pages/Accueil.jsx'
+import Partie from './pages/Partie.jsx'
+
+
+
 function App() {
 
 return (
   <div className="App">
-    <h1>Le Mot Mystère</h1>
+    <Routes>
+      <Route path="/accueil" element={<Accueil />} />
+      <Route path="/partie" element={<Partie />} />
+    </Routes>
   </div>
 )
 }
+
 export default App
