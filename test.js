@@ -1,3 +1,4 @@
-import { comparerMots } from "./src/logic/jeu.js"
+import { comparerMots, estGagne } from "./src/logic/jeu.js"
 
-console.log(comparerMots("ARBRE", "TABLE"))
+console.log(estGagne(comparerMots("ARBRE", "ARBRE")))   // true
+console.log(estGagne(comparerMots("ARBRE", "TABLE")))   // false

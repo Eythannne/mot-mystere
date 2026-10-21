@@ -45,3 +45,12 @@ export function comparerMots(motCache, proposition) {
 
     return resultat
 }
+
+export function estGagne(resultat) {
+    for (let i = 0; i < resultat.length; i++) {
+        if (resultat[i] !== "vert") {
+            return false
+        }
+    }
+    return true
+}
