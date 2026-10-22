@@ -1,15 +1,16 @@
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
 import { comparerMots, estGagne } from '../logic/jeu.js'
-// import { MOTS } from '..//data/mots-solutions.json'
 import MOTS from '../data/mots-solutions.json'
+
+const nb_essais_max = 6
 
 function Partie() {
     const [motCache] = useState(() => MOTS[Math.floor(Math.random() * MOTS.length)].toUpperCase())
     const [saisie, setSaisie] = useState("")
     const [essais, setEssais] = useState([])
     const gagne = essais.length > 0 && estGagne(essais[essais.length - 1].resultat)
-    const perdu = essais.length >= 6 && !gagne
+    const perdu = essais.length >= nb_essais_max && !gagne
     const fini = gagne || perdu
     const mot = saisie.toUpperCase()
 
@@ -48,6 +49,14 @@ function Partie() {
                         ))}
                     </div>
                 ))}
+
+                {Array(nb_essais_max - essais.length).fill(null).map((_, n) => (
+                    <div key={n} className="ligne">
+                        {motCache.split('').map((_, i) => (
+                            <span key={i} className="case vide">{n === 0 ? mot[i] : ""}</span>                        
+                        ))}
+                    </div>
+                ))}
             </div>
             {gagne && <p className="message">Bravo, tu as trouvé le mot mystère !</p>}
             {perdu && <p className="message">Perdu, réessaye une prochaine fois !</p>}
@@ -55,4 +64,4 @@ function Partie() {
     );
 }
 
-export default Partie;  
+export default Partie;
