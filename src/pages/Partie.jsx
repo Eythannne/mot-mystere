@@ -1,13 +1,15 @@
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
 import { comparerMots, estGagne } from '../logic/jeu.js'
+// import { MOTS } from '..//data/mots-solutions.json'
+import MOTS from '../data/mots-solutions.json'
 
 function Partie() {
-    const motCache = "ARBRE"
+    const [motCache] = useState(() => MOTS[Math.floor(Math.random() * MOTS.length)].toUpperCase())
     const [saisie, setSaisie] = useState("")
     const [essais, setEssais] = useState([])
     const gagne = essais.length > 0 && estGagne(essais[essais.length - 1].resultat)
-    const perdu = essais.length >= 5 && !gagne
+    const perdu = essais.length >= 6 && !gagne
     const fini = gagne || perdu
     const mot = saisie.toUpperCase()
 
