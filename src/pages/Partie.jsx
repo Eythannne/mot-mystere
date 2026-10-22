@@ -15,8 +15,23 @@ function Partie() {
     const fini = gagne || perdu
     const mot = saisie.toUpperCase()
 
+    function valider() {
+        if (mot.length !== motCache.length) {
+                    alert("Le mot doit contenir " + motCache.length + " lettres.")
+                    return
+                }
+                setEssais([...essais, { mot: mot, resultat: comparerMots(motCache, mot) }])
+                setSaisie("")
+            }
+
     useEffect(() => {
     function onKeyDown(e) {
+        if(fini) return
+        
+        if(e.key === "Enter") {
+            valider()
+        }
+
         if(e.key === "Backspace") {
             setSaisie(saisie.slice(0, -1))
         }
@@ -25,8 +40,7 @@ function Partie() {
         }
     }
     window.addEventListener("keydown", onKeyDown)
-    return () => window.removeEventListener( "keydown" , onKeyDown )}, [saisie])
-    
+    return () => window.removeEventListener( "keydown" , onKeyDown )}, [saisie, essais, fini])
 
     return (
         <div>
@@ -34,16 +48,7 @@ function Partie() {
             <p>Bienvenue dans la partie !</p>
             {/* <input value={mot} onChange={(e) => setSaisie(e.target.value)} maxLength={motCache.length} /> */}
             <Link to="/">Retour</Link>
-            <button disabled={fini} onClick={() => {
-                if (mot.length !== motCache.length) {
-                    alert("Le mot doit contenir " + motCache.length + " lettres.")
-                    return
-                }
-                setEssais([...essais, { mot: mot, resultat: comparerMots(motCache, mot) }])
-                setSaisie("")
-            }}>
-                Soumettre
-            </button>
+            <button disabled={fini} onClick={valider}>Soumettre</button>
             <div className={"mot-cache " + (gagne ? "gagne" : perdu ? "perdu" : "")}>
                 <h2>Mot Mystère</h2>
                 {motCache.split('').map((lettre, i) => (
