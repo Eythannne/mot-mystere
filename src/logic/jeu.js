@@ -27,14 +27,3 @@ export function estGagne(resultat) {
     }
     return true
 }
-
-/*
-export function estPerdu(resultat) {
-    for (let i = 0; i < resultat.length; i++) {
-        if (resultat[i] !== "rouge") {
-            return false
-        }
-    }
-    return true
-}
-*/

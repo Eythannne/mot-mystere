@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
+import { useEffect } from 'react'
 import { comparerMots, estGagne } from '../logic/jeu.js'
 import MOTS from '../data/mots-solutions.json'
 
@@ -14,12 +15,24 @@ function Partie() {
     const fini = gagne || perdu
     const mot = saisie.toUpperCase()
 
+    useEffect(() => {
+    function onKeyDown(e) {
+        if(e.key === "Backspace") {
+            setSaisie(saisie.slice(0, -1))
+        }
+        else if(e.key.match(/^[A-Z]$/i) && saisie.length < motCache.length) {
+            setSaisie(saisie + e.key.toUpperCase())
+        }
+    }
+    window.addEventListener("keydown", onKeyDown)
+    return () => window.removeEventListener( "keydown" , onKeyDown )}, [saisie])
+    
 
     return (
         <div>
             <h1>La Partie</h1>
             <p>Bienvenue dans la partie !</p>
-            <input value={mot} onChange={(e) => setSaisie(e.target.value)} maxLength={motCache.length} />
+            {/* <input value={mot} onChange={(e) => setSaisie(e.target.value)} maxLength={motCache.length} /> */}
             <Link to="/">Retour</Link>
             <button disabled={fini} onClick={() => {
                 if (mot.length !== motCache.length) {
