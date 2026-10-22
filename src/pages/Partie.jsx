@@ -9,16 +9,22 @@ function Partie() {
     const gagne = essais.length > 0 && estGagne(essais[essais.length - 1].resultat)
     const perdu = essais.length >= 5 && !gagne
     const fini = gagne || perdu
+    const mot = saisie.toUpperCase()
 
 
     return (
         <div>
             <h1>La Partie</h1>
             <p>Bienvenue dans la partie !</p>
-            <input value={saisie} onChange={(e) => setSaisie(e.target.value)} />
+            <input value={mot} onChange={(e) => setSaisie(e.target.value)} maxLength={motCache.length} />
             <Link to="/">Retour</Link>
             <button disabled={fini} onClick={() => {
-                setEssais([...essais, { mot: saisie, resultat: comparerMots(motCache, saisie) }])
+                if (mot.length !== motCache.length) {
+                    alert("Le mot doit contenir " + motCache.length + " lettres.")
+                    return
+                }
+                setEssais([...essais, { mot: mot, resultat: comparerMots(motCache, mot) }])
+                setSaisie("")
             }}>
                 Soumettre
             </button>
