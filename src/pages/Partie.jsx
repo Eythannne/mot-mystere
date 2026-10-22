@@ -22,6 +22,14 @@ function Partie() {
             }}>
                 Soumettre
             </button>
+            <div className={"mot-cache " + (gagne ? "gagne" : perdu ? "perdu" : "")}>
+                <h2>Mot Mystère</h2>
+                {motCache.split('').map((lettre, i) => (
+                    <span key={i} className="case">
+                        {fini ? lettre : "?"}
+                    </span>
+                ))}
+            </div>
             <div className="grille">
                 {essais.map((essai, n) => (
                     <div key={n} className="ligne">
