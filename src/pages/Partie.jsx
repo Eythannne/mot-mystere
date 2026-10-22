@@ -6,6 +6,10 @@ function Partie() {
     const motCache = "ARBRE"
     const [saisie, setSaisie] = useState("")
     const [essais, setEssais] = useState([])
+    const gagne = essais.length > 0 && estGagne(essais[essais.length - 1].resultat)
+    const perdu = essais.length >= 5 && !gagne
+    const fini = gagne || perdu
+
 
     return (
         <div>
@@ -13,7 +17,7 @@ function Partie() {
             <p>Bienvenue dans la partie !</p>
             <input value={saisie} onChange={(e) => setSaisie(e.target.value)} />
             <Link to="/">Retour</Link>
-            <button onClick={() => {
+            <button disabled={fini} onClick={() => {
                 setEssais([...essais, { mot: saisie, resultat: comparerMots(motCache, saisie) }])
             }}>
                 Soumettre
@@ -29,6 +33,8 @@ function Partie() {
                     </div>
                 ))}
             </div>
+            {gagne && <p className="message">Bravo, tu as trouvé le mot mystère !</p>}
+            {perdu && <p className="message">Perdu, réessaye une prochaine fois !</p>}
         </div>
     );
 }
