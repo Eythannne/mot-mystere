@@ -27,3 +27,10 @@ export function estGagne(resultat) {
     }
     return true
 }
+
+export function nbPoints(nbEssais, gagne) {
+    if (!gagne) {
+        return 0
+    }
+    return 700 - (nbEssais * 100)
+}
