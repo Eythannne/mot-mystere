@@ -1,0 +1,144 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  background: #121213;
+  color: #ffffff;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+#root {
+  width: 100%;
+  max-width: 520px;
+  padding: 24px 16px;
+  text-align: center;
+}
+
+h1 {
+  margin: 0 0 8px;
+  letter-spacing: 2px;
+}
+
+a {
+  color: #8ab4f8;
+}
+
+/* ----- Une case (lettre) ----- */
+.case {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  margin: 3px;
+  border: 2px solid #3a3a3c;
+  border-radius: 6px;
+  font-size: 28px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+/* ----- États d'une case ----- */
+.case.vert {
+  background: #538d4e;
+  border-color: #538d4e;
+}
+
+.case.jaune {
+  background: #b59f3b;
+  border-color: #b59f3b;
+}
+
+.case.absent {
+  background: #3a3a3c;
+  border-color: #3a3a3c;
+}
+
+/* ----- Mot à trouver (en haut) ----- */
+.mot-cache {
+  margin: 16px 0 24px;
+}
+
+.mot-cache h2 {
+  margin: 0 0 8px;
+  font-size: 20px;
+}
+
+.mot-cache .case {
+  background: transparent;
+  border-color: #818384;
+}
+
+.mot-cache.gagne .case {
+  background: #538d4e;
+  border-color: #538d4e;
+}
+
+.mot-cache.perdu .case {
+  background: #c0392b;
+  border-color: #c0392b;
+}
+
+/* ----- Grille des essais ----- */
+.grille {
+  margin: 24px 0;
+}
+
+.ligne {
+  display: flex;
+  justify-content: center;
+}
+
+.ligne .case.vide {
+  background: transparent;
+  border-color: #3a3a3c;
+}
+
+/* ----- Saisie et bouton ----- */
+input {
+  padding: 10px 12px;
+  border: 2px solid #3a3a3c;
+  border-radius: 6px;
+  background: #1f1f21;
+  color: #ffffff;
+  font-size: 18px;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+input:focus {
+  outline: none;
+  border-color: #818384;
+}
+
+button {
+  margin-left: 8px;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 6px;
+  background: #538d4e;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #62a45c;
+}
+
+button:disabled {
+  background: #3a3a3c;
+  cursor: not-allowed;
+}
+
+.message {
+  margin: 16px 0;
+  font-size: 20px;
+  font-weight: bold;
+}
