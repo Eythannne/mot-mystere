@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
 import { useEffect } from 'react'
-import { comparerMots, estGagne } from '../logic/jeu.js'
+import { comparerMots, estGagne, nbPoints } from '../logic/jeu.js'
 import MOTS from '../data/mots-solutions.json'
 
 const nb_essais_max = 6
@@ -14,6 +14,7 @@ function Partie() {
     const perdu = essais.length >= nb_essais_max && !gagne
     const fini = gagne || perdu
     const mot = saisie.toUpperCase()
+    const points = nbPoints(essais.length, gagne)
 
     function valider() {
         if (mot.length !== motCache.length) {
@@ -78,6 +79,7 @@ function Partie() {
             </div>
             {gagne && <p className="message">Bravo, tu as trouvé le mot mystère !</p>}
             {perdu && <p className="message">Perdu, réessaye une prochaine fois !</p>}
+            {fini && <p className="message">Ton score : {points} points</p>}
         </div>
     );
 }
