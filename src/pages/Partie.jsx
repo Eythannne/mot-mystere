@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom'
-import { useState } from 'react'
-import { useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { comparerMots, estGagne, nbPoints } from '../logic/jeu.js'
 import MOTS from '../data/mots-solutions.json'
 
@@ -58,7 +57,6 @@ function Partie() {
         <div>
             <h1>La Partie</h1>
             <p>Bienvenue dans la partie {pseudo} !</p>
-            {/* <input value={mot} onChange={(e) => setSaisie(e.target.value)} maxLength={motCache.length} /> */}
             <Link to="/">Retour</Link>
             <button disabled={fini} onClick={valider}>Soumettre</button>
             <div className={"mot-cache " + (gagne ? "gagne" : perdu ? "perdu" : "")}>
