@@ -19,6 +19,7 @@ function Partie() {
     const fini = gagne || perdu
     const mot = saisie.toUpperCase()
     const points = nbPoints(essais.length, gagne)
+    const pseudo = localStorage.getItem("pseudo")
 
     function valider() {
         if (mot.length !== motCache.length) {
@@ -56,7 +57,7 @@ function Partie() {
     return (
         <div>
             <h1>La Partie</h1>
-            <p>Bienvenue dans la partie !</p>
+            <p>Bienvenue dans la partie {pseudo} !</p>
             {/* <input value={mot} onChange={(e) => setSaisie(e.target.value)} maxLength={motCache.length} /> */}
             <Link to="/">Retour</Link>
             <button disabled={fini} onClick={valider}>Soumettre</button>
