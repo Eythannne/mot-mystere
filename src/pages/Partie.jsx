@@ -6,8 +6,12 @@ import MOTS from '../data/mots-solutions.json'
 
 const nb_essais_max = 6
 
+function tirerMot() {
+    return MOTS[Math.floor(Math.random() * MOTS.length)].toUpperCase()
+}
+
 function Partie() {
-    const [motCache] = useState(() => MOTS[Math.floor(Math.random() * MOTS.length)].toUpperCase())
+    const [motCache, setMotCache] = useState(tirerMot)
     const [saisie, setSaisie] = useState("")
     const [essais, setEssais] = useState([])
     const gagne = essais.length > 0 && estGagne(essais[essais.length - 1].resultat)
@@ -24,6 +28,12 @@ function Partie() {
                 setEssais([...essais, { mot: mot, resultat: comparerMots(motCache, mot) }])
                 setSaisie("")
             }
+
+    function nouvellePartie() {
+        setMotCache(tirerMot())
+        setEssais([])
+        setSaisie("")
+    }
 
     useEffect(() => {
     function onKeyDown(e) {
@@ -80,6 +90,7 @@ function Partie() {
             {gagne && <p className="message">Bravo, tu as trouvé le mot mystère !</p>}
             {perdu && <p className="message">Perdu, réessaye une prochaine fois !</p>}
             {fini && <p className="message">Ton score : {points} points</p>}
+            {fini && <button onClick={nouvellePartie}>Nouvelle Partie</button>}
         </div>
     );
 }
