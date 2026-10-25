@@ -1,3 +1,5 @@
+import ACCENTS from '../data/accents.json'
+
 export function comparerMots(motCache, proposition) {
     const resultat = Array(motCache.length).fill("absent")
     const lettres = motCache.split("")
@@ -33,4 +35,33 @@ export function nbPoints(nbEssais, gagne) {
         return 0
     }
     return 700 - (nbEssais * 100)
+}
+
+export function sansAccents(texte) {
+    return texte
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/œ/g, "oe")
+        .replace(/æ/g, "ae")
+        .toLowerCase()
+}
+
+export function motAvecAccents(mot) {
+    const minuscule = mot.toLowerCase()
+    return ACCENTS[minuscule] || minuscule
+}
+
+export function statutsLettres(essais) {
+    const rang = { absent: 1, jaune: 2, vert: 3 }
+    const statuts = {}
+    for (const essai of essais) {
+        for (let i = 0; i < essai.mot.length; i++) {
+            const lettre = essai.mot[i]
+            const statut = essai.resultat[i]
+            if (!statuts[lettre] || rang[statut] > rang[statuts[lettre]]) {
+                statuts[lettre] = statut
+            }
+        }
+    }
+    return statuts
 }
